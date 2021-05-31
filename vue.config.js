@@ -1,7 +1,8 @@
 const path = require('path')
 
-function addStyleResource (rule) {
-  rule.use('style-resource')
+function addStyleResource(rule) {
+  rule
+    .use('style-resource')
     .loader('style-resources-loader')
     .options({
       patterns: [
@@ -10,9 +11,11 @@ function addStyleResource (rule) {
     })
 }
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
-    types.forEach(type => addStyleResource(config.module.rule('less').oneOf(type)))
+    types.forEach((type) =>
+      addStyleResource(config.module.rule('less').oneOf(type))
+    )
   },
 
   // 路径别名的配置
@@ -27,5 +30,25 @@ module.exports = {
         } // 别名配置
       }
     })
+  },
+  // 设置开发环境的服务
+  devServer: {
+    proxy: {
+      // 配置跨域
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        ws: true,
+        changOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  },
+  // 插件配置
+  pluginOptions: {
+    electronBuilder: {
+      nodeIntegration: true
+    }
   }
 }

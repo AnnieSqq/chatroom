@@ -19,6 +19,6 @@ export default {
     // 赋值实例
     this.instance = win
     // 初始化窗口
-    initWindow(win, 'login')
+    initWindow(this, 'login')
   }
 }

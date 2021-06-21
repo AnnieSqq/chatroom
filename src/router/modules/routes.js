@@ -8,7 +8,6 @@ files.keys().forEach((key) => {
 // 生成路由规则
 const generator = []
 Object.keys(pages).forEach((item) => {
-  console.log(pages[item])
   generator.push({
     path: `/${pages[item].name.replace(/-/g, '/')}`,
     name: pages[item].name,

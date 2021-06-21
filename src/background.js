@@ -1,8 +1,8 @@
 'use strict'
 
 import { app, protocol } from 'electron'
-// import loginManager from '@/electron/windows/login'
-import chatsManager from '@/electron/windows/chats'
+import loginManager from '@/electron/windows/login'
+// import chatsManager from '@/electron/windows/chats'
 import '@/electron/ipc'
 // import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 // import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -21,13 +21,14 @@ app.on('will-finish-launching', () => {})
 app.on('ready', async () => {
   console.log('app ready')
   // 创建并初始化登录窗口
-  // loginManager.create()
+  loginManager.create()
   // 聊天窗口
-  chatsManager.create()
+  // chatsManager.create()
 })
 
 app.on('window-all-closed', () => {
   console.log('app window-all-closed')
+  app.quit()
 })
 
 app.on('before-quit', () => {

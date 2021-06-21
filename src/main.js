@@ -6,8 +6,8 @@ import store from './store'
 import Antd from 'ant-design-vue'
 import './assets/styles/theme/default.less'
 import './assets/styles/global/index.less'
-console.log('xxx')
-console.log(Antd)
+import api from '@/api'
+Vue.prototype.$api = api
 Vue.use(Antd)
 Vue.config.productionTip = false
 

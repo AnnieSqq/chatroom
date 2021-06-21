@@ -18,7 +18,6 @@ export default {
   },
   components: {},
   mounted() {
-    console.log(this.$route.path)
   }
 }
 </script>

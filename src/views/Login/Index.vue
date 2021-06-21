@@ -1,16 +1,19 @@
 <template>
   <div class="outer">
     <div class="header">
-      <a-icon type="close"></a-icon>
-      <a-icon type="minus"></a-icon>
+      <a-icon type="close" class="icon-close" @click="handleClose"></a-icon>
+      <a-icon type="minus" @click="handleMinimize"></a-icon>
     </div>
     <div class="form-row">
       <a-icon type="user"></a-icon>
-      <a-input placeholder="请输入用户名"></a-input>
+      <a-input
+        v-model="userInput.username"
+        placeholder="请输入用户名"
+      ></a-input>
     </div>
     <div class="form-row">
       <a-icon type="lock"></a-icon>
-      <a-input placeholder="请输入密码"></a-input>
+      <a-input v-model="userInput.password" placeholder="请输入密码"></a-input>
     </div>
     <div class="submit-row">
       <a-button type="default" @click="handleRegister">注册</a-button>
@@ -24,15 +27,34 @@ import { ipcRenderer } from 'electron'
 export default {
   name: 'login',
   data() {
-    return {}
+    return {
+      userInput: {
+        username: '',
+        password: ''
+      }
+    }
   },
   methods: {
     handleLogin() {
-      console.log('登录')
-      ipcRenderer.send('login')
+      this.$api.user.login(this.userInput).then(res => {
+        if (res.code === '200') {
+          this.$message.success(res.msg)
+          ipcRenderer.send('login', JSON.stringify(res.data))
+        }
+      })
     },
     handleRegister() {
-      this.$message.success('注册成功！')
+      this.$api.user.register(this.userInput).then(res => {
+        if (res.code === '200') {
+          this.$message.success(res.msg)
+        }
+      })
+    },
+    handleMinimize() {
+      ipcRenderer.send('login-min')
+    },
+    handleClose() {
+      ipcRenderer.send('login-close')
     }
   }
 }
@@ -63,6 +85,9 @@ export default {
     }
     .anticon:hover {
       background-color: rgba(255, 255, 255, 0.199);
+    }
+    .icon-close:hover {
+      background-color: #fd7083cc;
     }
   }
   .form-row {

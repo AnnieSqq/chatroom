@@ -32,19 +32,19 @@ module.exports = {
     })
   },
   // 设置开发环境的服务
-  devServer: {
-    proxy: {
-      // 配置跨域
-      '/api': {
-        target: 'http://127.0.0.1:3000',
-        ws: true,
-        changOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
-      }
-    }
-  },
+  // devServer: {
+  //   proxy: {
+  //     // 配置跨域
+  //     '/api': {
+  //       target: 'http://api.chatroom.anniesqq.com',
+  //       ws: true,
+  //       changOrigin: true,
+  //       pathRewrite: {
+  //         '^/api': ''
+  //       }
+  //     }
+  //   }
+  // },
   // 插件配置
   pluginOptions: {
     electronBuilder: {
